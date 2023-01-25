@@ -1,0 +1,7 @@
+
+@media (max-width:767px) {
+    .barnav {
+        display: flex;
+        flex-direction: column !important;
+    }
+}
