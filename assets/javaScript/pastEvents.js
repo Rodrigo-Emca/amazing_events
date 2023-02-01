@@ -16,7 +16,7 @@ for (let event of pastEventsDate) {
         <h5 class="card-title">${event.name}</h5>
         <p class="card-text">${event.description}</p>
         <div class="d-flex justify-content-around">
-        <a href="./assets/html/details.html" class="card-link">Details</a>
+        <a href="../html/details.html" class="card-link">Details</a>
         </div>
     </div>
 </div>`

@@ -1,6 +1,30 @@
+header {
+    min-height: 10vh;
+}
 
 #imageCard {
     max-height: 10rem;
     object-fit: cover;
     box-shadow: 1px 1px 5px 2px;
+}
+
+#navBackgroundColor{
+    background-color: #e36314a0 !important;
+}
+
+#nameVar {
+    background-color: #2897cb52 !important;
+}
+
+main {
+    min-height: 75vh;
+    background-color: #0f4d5c24 !important;
+}
+
+#navButtons {
+    background-color: #c45870 !important;
+}
+
+footer {
+    min-height: 15vh;
 }
