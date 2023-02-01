@@ -2,9 +2,18 @@ let generalEvents = data.events
 let pastEventsCards = document.getElementById("pastEventsCards")
 
 const pastEventsDate = []
-for (let i = 0; i < generalEvents.length; i++) {
-    if (generalEvents[i]["date"] < data.currentDate)
-    pastEventsDate.push(generalEvents[i])
+// for (let i = 0; i < generalEvents.length; i++) {
+//     if (generalEvents[i]["date"] < data.currentDate)
+//     pastEventsDate.push(generalEvents[i])
+// }
+// console.log(pastEventsDate)
+// console.log(pastEventsDate.length)
+
+for (let event of generalEvents) {
+    // console.log(event.date)
+    if (event.date < data.currentDate){
+        pastEventsDate.push(event)
+    }
 }
 // console.log(pastEventsDate)
 // console.log(pastEventsDate.length)
