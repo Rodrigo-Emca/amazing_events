@@ -2,6 +2,7 @@ const generalEvents = data.events
 const pastEventsCards = document.getElementById("pastEventsCards")
 
 
+const pastEventsDate = []
 function filtrarPorFecha(fecha, lista){
     let aux = []
     for (let event of lista) {

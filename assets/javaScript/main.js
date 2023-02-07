@@ -1,10 +1,14 @@
 const $generalEvents = data.events
 const $listOfEvent = document.getElementById("cardsMainColection")
+
 const $checkboxSelection = document.getElementById("checkboxSelection")
 
 const categoriasRepetidas = $generalEvents.map(evento => evento["category"])
 const categoriasSinRepetirSet = new Set (categoriasRepetidas)
 const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
+
+const $keyword = document.getElementById("keyword")
+//console.log($keyword)
 
 
 //ejecución de funciones
@@ -18,11 +22,12 @@ agregarCard($generalEvents, $listOfEvent) //Las cartas se generan desde el inici
 
 //eventos
 
+//Filtro por checkbox:
 $checkboxSelection.addEventListener("change", (evento) => {
   $listOfEvent.innerHTML = `` //Cuando el evento se ejecuta, deja sin tarjetas la pagina, selecciona los checkbox checked, y luego ejecuta el filtro.
 
   const $checkboxCheckeado = document.querySelectorAll(`input[type="checkbox"]:checked`)
-  console.log($checkboxCheckeado)
+  //console.log($checkboxCheckeado)
 
   const categorias = []
   for(let categoria of $checkboxCheckeado){
@@ -33,9 +38,37 @@ $checkboxSelection.addEventListener("change", (evento) => {
   console.log(categorias.length)
 
   const filtrados=  filtrarCards($generalEvents, categorias)
+
   agregarCard(filtrados, $listOfEvent)
 }
 )
+
+
+//filtro por Keyword Search:
+
+$keyword.addEventListener("keyup", (event) => {
+  $listOfEvent.innerHTML = ``
+
+  const palabras = ($keyword.value).toLowerCase()
+  console.log(palabras)
+
+  let matches = filtrarCoincidencias($generalEvents, palabras)
+  console.log(matches)
+
+  agregarCard(matches, $listOfEvent)
+}
+)
+
+function filtrarCoincidencias(listaEventos, keywordIngresado) {
+  const coincidencias = []
+  for (let evento of listaEventos){
+    if((evento["name"].toLowerCase()).includes(keywordIngresado)){
+    coincidencias.push(evento)
+    console.log(evento)
+  }
+}
+return coincidencias
+}
 
 //funciones
 
@@ -79,7 +112,7 @@ function filtrarCards(lista, categorias){
 function generarCheckbox(lista, elemento){
   for(let categoria of lista) {
     elemento.innerHTML += `<label class="d-flex flex-wrap gap-1">
-    <input type="checkbox" id="${categoria}" name="${categoria}" value="${categoria}">
+    <input type="checkbox"  name="${categoria}" value="${categoria}">
     ${categoria}</label>` 
   }
 }
