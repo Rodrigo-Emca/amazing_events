@@ -1,26 +1,7 @@
-let generalEvents = data.events
-let pastEventsCards = document.getElementById("pastEventsCards")
+const generalEvents = data.events
+const pastEventsCards = document.getElementById("pastEventsCards")
 
-//Método#1:
-const pastEventsDate = []
-// for (let i = 0; i < generalEvents.length; i++) {
-//     if (generalEvents[i]["date"] < data.currentDate)
-//     pastEventsDate.push(generalEvents[i])
-// }
-// console.log(pastEventsDate)
-// console.log(pastEventsDate.length)
 
-//Método#2:
-// for (let event of generalEvents) {
-//     // console.log(event.date)
-//     if (event.date < data.currentDate){
-//         pastEventsDate.push(event)
-//     }
-// }
-// console.log(pastEventsDate)
-// console.log(pastEventsDate.length)
-
-//Método por función:
 function filtrarPorFecha(fecha, lista){
     let aux = []
     for (let event of lista) {
@@ -31,7 +12,6 @@ function filtrarPorFecha(fecha, lista){
     return aux
 }
 const pastEvents = filtrarPorFecha(data.currentDate, generalEvents)
-// console.log(pastEvents)
 
 
 for (let event of pastEventsDate) {

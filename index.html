@@ -35,41 +35,27 @@
     </div>
   </header>
   <main>
-    <div class="container">
-      <div class="d-flex flex-row flex-wrap p-4 justify-content-center">
-        <div class= "d-flex flex-wrap col-md-8">
-          <form action="#">
-            <label class="p-2">
-              <input type="checkbox" id="category" name="category">
-              Category1
-            </label>
-            <label class="p-2">
-              <input type="checkbox" id="category" name="category">
-              Category2
-            </label>
-            <label class="p-2">
-              <input type="checkbox" id="category" name="category">
-              Category3
-            </label>
-            <label class="p-2">
-              <input type="checkbox" id="category" name="category">
-              Category4
-            </label>
-            <label class="p-2">
-              <input type="checkbox" id="category" name="category">
-              Category5
-            </label>
+    <div class="container d-flex flex-wrap"> 
+      <div class="d-flex flex-row flex-wrap justify-content-center pt-3">
+        <div class= "d-flex flex-wrap col-md-10">
+
+          <form class= "d-flex col gap-4" id="checkboxSelection">
+            <h5>Categories: </h5>
+            
           </form>
+
         </div>
+
         <div class="input-group col">
-          <div class="form-outline ">
+          <div class="form-outline col-9">
             <input type="search" id="form1" class="form-control" placeholder="Search"/>
           </div>
-          <button type="button" class="btn btn-primary">
+          <button class="col-3" type="button" class="btn btn-primary">
             <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="magnifyingGlass" height="15px">
             <i class="fas fa-search"></i>
           </button>
         </div>
+
       </div>
     </div>
     <div class="container d-flex flex-row flex-wrap justify-content-center" id="cardsMainColection">

@@ -1,30 +1,8 @@
 let generalEvents = data.events
 let upcomingEventsCards = document.getElementById("upcomingEventsCards")
 
-// console.log(data.currentDate)
-// console.log(data.events[10]["date"])
-// console.log(data.currentDate < data.events[10]["date"])
 
-//Método#1:
 const upcomingEventsDate = []
-// for (let i = 0; i < data.events.length; i++) {
-//     if (generalEvents[i]["date"] > data.currentDate)
-//     upcomingEventsDate.push(generalEvents[i])
-// }
-// console.log(upcomingEventsDate)
-// console.log(upcomingEventsDate.length)
-
-//Método#2:
-// for (let event of generalEvents) {
-//     // console.log(event.date)
-//     if (event.date > data.currentDate){
-//         upcomingEventsDate.push(event)
-//     }
-// }
-// console.log(pastEventsDate)
-// console.log(pastEventsDate.length)
-
-//Método por función:
 function filtrarPorFecha(fecha, lista){
     let aux = []
     for (let event of lista) {
@@ -35,7 +13,6 @@ function filtrarPorFecha(fecha, lista){
     return aux
 }
 const upcomingEvents = filtrarPorFecha(data.currentDate, generalEvents)
-// console.log(pastEvents)
 
 for (let event of upcomingEventsDate) {
     upcomingEventsCards.innerHTML += `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
