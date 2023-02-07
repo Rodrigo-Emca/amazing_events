@@ -12,6 +12,7 @@ const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
 //La que crea el checkbox:
 generarCheckbox(categoriasSinRepetirArray, $checkboxSelection)
 
+//
 agregarCard($generalEvents, $listOfEvent) //Las cartas se generan desde el inicio. Luego, sucede el evento...
 
 
@@ -21,6 +22,7 @@ $checkboxSelection.addEventListener("change", (evento) => {
   $listOfEvent.innerHTML = `` //Cuando el evento se ejecuta, deja sin tarjetas la pagina, selecciona los checkbox checked, y luego ejecuta el filtro.
 
   const $checkboxCheckeado = document.querySelectorAll(`input[type="checkbox"]:checked`)
+  console.log($checkboxCheckeado)
 
   const categorias = []
   for(let categoria of $checkboxCheckeado){
@@ -28,6 +30,8 @@ $checkboxSelection.addEventListener("change", (evento) => {
       categorias.push(categoria.value)
     }
   }
+  console.log(categorias.length)
+
   const filtrados=  filtrarCards($generalEvents, categorias)
   agregarCard(filtrados, $listOfEvent)
 }
@@ -35,12 +39,12 @@ $checkboxSelection.addEventListener("change", (evento) => {
 
 //funciones
 
-function agregarCard(lista, elemento){
+function agregarCard(lista, elementoDestino){
   let template = ""
   for (let evento of lista){
     template += generarCard(evento)
   }
-  elemento.innerHTML += template
+  elementoDestino.innerHTML += template
 }
 
 function generarCard(evento){
@@ -57,6 +61,9 @@ function generarCard(evento){
 }
 
 function filtrarCards(lista, categorias){
+  if(categorias.length === 0){
+    return lista
+  }
   let aux = []
   for (let evento of lista){
     for (let categoria of categorias){
@@ -75,25 +82,4 @@ function generarCheckbox(lista, elemento){
     <input type="checkbox" id="${categoria}" name="${categoria}" value="${categoria}">
     ${categoria}</label>` 
   }
-}
-
-
-function filtrarEventosPorCategory(events, value){
-  return events.filter(evento => evento.category== value)
-}
-
-function checkboxesCheckeados(eventos){
-  let aux = []
-  for (let etento of eventos){
-    if (evento.target.checked = true){
-        return evento
-      }
-  }
-  return aux
-}
-
-function juntarCheckbox(evento){
-  let aux = []
-
-  return aux
 }
