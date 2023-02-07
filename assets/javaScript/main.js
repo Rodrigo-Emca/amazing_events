@@ -8,26 +8,21 @@ const categoriasSinRepetirSet = new Set (categoriasRepetidas)
 const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
 
 const $keyword = document.getElementById("keyword")
-//console.log($keyword)
 
 
 //ejecución de funciones
-
-//La que crea el checkbox:
 generarCheckbox(categoriasSinRepetirArray, $checkboxSelection)
 
-//
-agregarCard($generalEvents, $listOfEvent) //Las cartas se generan desde el inicio. Luego, sucede el evento...
+agregarCard($generalEvents, $listOfEvent) 
 
 
 //eventos
 
 //Filtro por checkbox:
-$checkboxSelection.addEventListener("change", (evento) => {
-  $listOfEvent.innerHTML = `` //Cuando el evento se ejecuta, deja sin tarjetas la pagina, selecciona los checkbox checked, y luego ejecuta el filtro.
+$checkboxSelection.addEventListener("change", () => {
+  $listOfEvent.innerHTML = ``
 
   const $checkboxCheckeado = document.querySelectorAll(`input[type="checkbox"]:checked`)
-  //console.log($checkboxCheckeado)
 
   const categorias = []
   for(let categoria of $checkboxCheckeado){
@@ -35,40 +30,43 @@ $checkboxSelection.addEventListener("change", (evento) => {
       categorias.push(categoria.value)
     }
   }
-  console.log(categorias.length)
 
   const filtrados=  filtrarCards($generalEvents, categorias)
 
-  agregarCard(filtrados, $listOfEvent)
+  const palabras = ($keyword.value).toLowerCase()
+  console.log(palabras)
+  const matches = filtrarCoincidencias(filtrados, palabras)
+
+  agregarCard(matches, $listOfEvent)
 }
 )
 
 
 //filtro por Keyword Search:
 
-$keyword.addEventListener("keyup", (event) => {
+$keyword.addEventListener("keyup", () => {
   $listOfEvent.innerHTML = ``
+  
+  const filtradosPorCheckbox = document.querySelectorAll(`input[type="checkbox"]:checked`)
+
+  const categorias = []
+  for(let categoria of filtradosPorCheckbox){
+    if(categoria) {
+      categorias.push(categoria.value)
+    }
+  }
+  console.log(categorias.length)
+  const filtrados=  filtrarCards($generalEvents, categorias)
+  console.log(filtrados)
+  
 
   const palabras = ($keyword.value).toLowerCase()
-  console.log(palabras)
 
-  let matches = filtrarCoincidencias($generalEvents, palabras)
-  console.log(matches)
+  const matches = filtrarCoincidencias(filtrados, palabras)
 
   agregarCard(matches, $listOfEvent)
 }
 )
-
-function filtrarCoincidencias(listaEventos, keywordIngresado) {
-  const coincidencias = []
-  for (let evento of listaEventos){
-    if((evento["name"].toLowerCase()).includes(keywordIngresado)){
-    coincidencias.push(evento)
-    console.log(evento)
-  }
-}
-return coincidencias
-}
 
 //funciones
 
@@ -108,6 +106,16 @@ function filtrarCards(lista, categorias){
   return aux
 }
 
+function filtrarCoincidencias(listaEventos, keywordIngresado) {
+  const coincidencias = []
+  for (let evento of listaEventos){
+    if((evento["name"].toLowerCase()).includes(keywordIngresado)){
+    coincidencias.push(evento)
+    console.log(evento)
+  }
+}
+return coincidencias
+}
 
 function generarCheckbox(lista, elemento){
   for(let categoria of lista) {
