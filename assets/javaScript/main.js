@@ -2,7 +2,6 @@ const $generalEvents = data.events
 const $listOfEvent = document.getElementById("cardsMainColection")
 
 const $checkboxSelection = document.getElementById("checkboxSelection")
-
 const categoriasRepetidas = $generalEvents.map(evento => evento["category"])
 const categoriasSinRepetirSet = new Set (categoriasRepetidas)
 const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
@@ -11,6 +10,7 @@ const $keyword = document.getElementById("keyword")
 
 
 //ejecución de funciones
+
 generarCheckbox(categoriasSinRepetirArray, $checkboxSelection)
 
 agregarCard($generalEvents, $listOfEvent) 
@@ -18,23 +18,18 @@ agregarCard($generalEvents, $listOfEvent)
 
 //eventos
 
-//Filtro por checkbox:
+//CHECKBOX:
 $checkboxSelection.addEventListener("change", () => {
   $listOfEvent.innerHTML = ``
 
-  const $checkboxCheckeado = document.querySelectorAll(`input[type="checkbox"]:checked`)
+  const filtradosPorCheckbox = document.querySelectorAll(`input[type="checkbox"]:checked`)
 
-  const categorias = []
-  for(let categoria of $checkboxCheckeado){
-    if(categoria) {
-      categorias.push(categoria.value)
-    }
-  }
+  const categorias = getCategories(filtradosPorCheckbox)
 
   const filtrados=  filtrarCards($generalEvents, categorias)
 
   const palabras = ($keyword.value).toLowerCase()
-  console.log(palabras)
+
   const matches = filtrarCoincidencias(filtrados, palabras)
 
   agregarCard(matches, $listOfEvent)
@@ -42,23 +37,16 @@ $checkboxSelection.addEventListener("change", () => {
 )
 
 
-//filtro por Keyword Search:
+//KEYWORD SEARCH:
 
 $keyword.addEventListener("keyup", () => {
   $listOfEvent.innerHTML = ``
   
   const filtradosPorCheckbox = document.querySelectorAll(`input[type="checkbox"]:checked`)
 
-  const categorias = []
-  for(let categoria of filtradosPorCheckbox){
-    if(categoria) {
-      categorias.push(categoria.value)
-    }
-  }
-  console.log(categorias.length)
-  const filtrados=  filtrarCards($generalEvents, categorias)
-  console.log(filtrados)
+  const categorias = getCategories(filtradosPorCheckbox)
   
+  const filtrados=  filtrarCards($generalEvents, categorias)
 
   const palabras = ($keyword.value).toLowerCase()
 
@@ -89,6 +77,16 @@ function generarCard(evento){
     </div>
   </div>
 </div>`
+}
+
+function getCategories(nodos){
+  const categorias = []
+  for(let categoria of nodos){
+    if(categoria) {
+      categorias.push(categoria.value)
+    }    
+  }
+  return categorias
 }
 
 function filtrarCards(lista, categorias){
