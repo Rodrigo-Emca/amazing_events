@@ -1,11 +1,17 @@
 //Funciones Exportadas:
 
 export function agregarCard(lista, elementoDestino){
-    let template = ""
-    for (let evento of lista){
+    if(lista.length === 0){return elementoDestino.innerHTML = `
+    <div class="d-flex flex-column justify-content-center pt-3">
+    <h3 class="text-center pt-2 pb-2">Oops, could´t found your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    else{
+        let template = ""
+        for (let evento of lista){
         template += generarCard(evento)
     }
     elementoDestino.innerHTML += template
+    }
+    
 }
 
 export function generarCard(evento){
@@ -22,11 +28,16 @@ return `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
 }
 
 export function agregarCardPastFurure(lista, elementoDestino){
+    if(lista.length === 0){return elementoDestino.innerHTML = `
+    <div class="d-flex flex-column justify-content-center pt-3">
+    <h3 class="text-center pt-2 pb-2">Oops, could´t found your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    else{
     let template = ""
     for (let evento of lista){
         template += generarCardPastFuture(evento)
     }
     elementoDestino.innerHTML += template
+    }
 }
 
 export function generarCardPastFuture(evento){
