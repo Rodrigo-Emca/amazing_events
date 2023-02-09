@@ -3,7 +3,7 @@
 export function agregarCard(lista, elementoDestino){
     if(lista.length === 0){return elementoDestino.innerHTML = `
     <div class="d-flex flex-column justify-content-center pt-3">
-    <h3 class="text-center pt-2 pb-2">Oops, could´t found your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
     else{
         let template = ""
         for (let evento of lista){
@@ -30,7 +30,7 @@ return `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
 export function agregarCardPastFurure(lista, elementoDestino){
     if(lista.length === 0){return elementoDestino.innerHTML = `
     <div class="d-flex flex-column justify-content-center pt-3">
-    <h3 class="text-center pt-2 pb-2">Oops, could´t found your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
     else{
     let template = ""
     for (let evento of lista){
@@ -91,8 +91,8 @@ return coincidencias
 
 export function generarCheckbox(lista, elemento){
 for(let categoria of lista) {
-    elemento.innerHTML += `<label class="d-flex flex-wrap gap-1">
-    <input type="checkbox"  name="${categoria}" value="${categoria}">
+    elemento.innerHTML += `<label class="d-flex gap-2 col-12 col-md-3 col-lg-1">
+    <input type="checkbox" name="${categoria}" value="${categoria}">
     ${categoria}</label>` 
 }
 }

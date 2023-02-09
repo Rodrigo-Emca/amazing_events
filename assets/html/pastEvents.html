@@ -35,30 +35,20 @@
         </div>
     </header>
     <main>
-      <div class="container"> 
-        <!-- Revisar y corregir el flexbox: no aplica wrap cuando esta en resolucion minima -->
-        <div class="d-flex flex-row flex-wrap p-4 justify-content-center">
-          <div class= "d-flex flex-wrap col-md-10">
-
-            <form class= "d-flex col gap-4" id="checkboxSelection">
-              <h5>Categories: </h5>
-              
-            </form>
-  
-          </div>
-
-        <div class="input-group col">
-          <div class="form-outline col-9 d-flex">
-            <input type="text" id="keyword" class="form-control" placeholder="Search"/>
-            <button class="col-3" type="button" class="btn btn-primary">
-              <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="magnifyingGlass" height="15px">
-              <i class="fas fa-search"></i>
-            </button>
+      <div class="container d-flex pt-2"> 
+        <div class= "d-flex flex-wrap col-lg-12 justify-content-between">
+          <h5 class= "col-12 col-lg-auto">Categories: </h5>
+          <form class= "d-flex flex-wrap justify-content-between col-lg-8" id="checkboxSelection">
+          </form>
+          <div class="d-flex pt-2 col-12 col-md-12 col-lg-2">
+              <input type="text" id="keyword" class="col-10" placeholder="Search"/>
+              <button class="col-2" type="button" class="btn btn-primary">
+                <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="magnifyingGlass" height="15px">
+                <i class="fas fa-search"></i>
+              </button>
           </div>
         </div>
-
-        </div>
-      </div>
+    </div>
 
       <div class="container d-flex flex-row flex-wrap justify-content-center" id="pastEventsCards">
       </div>
