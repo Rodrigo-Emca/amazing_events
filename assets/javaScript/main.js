@@ -8,7 +8,6 @@ const $checkboxSelection = document.getElementById("checkboxSelection")
 const categoriasRepetidas = $generalEvents.map(evento => evento["category"])
 const categoriasSinRepetirSet = new Set (categoriasRepetidas)
 const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
-
 const $keyword = document.getElementById("keyword")
 
 
