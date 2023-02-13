@@ -137,3 +137,4 @@ export function generarDetailCard(event, destino) {
     </div>
 </div>`
 }
+

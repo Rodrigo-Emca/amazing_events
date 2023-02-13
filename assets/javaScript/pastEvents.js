@@ -1,21 +1,17 @@
-import { data } from "./data.js"
+
 import {filtrarPorFechaPasada, generarCheckbox, getCategories, filtrarCards, filtrarCoincidencias, agregarCardPastFurure} from "./module/functions.js"
 
-const generalEvents = data.events
 const pastEventsCards = document.getElementById("pastEventsCards")
-
-const pastEvents = filtrarPorFechaPasada(data.currentDate, generalEvents)
-
+const $checkboxSelection = document.getElementById("checkboxSelection")
 const $keyword = document.getElementById("keyword")
 
-const $checkboxSelection = document.getElementById("checkboxSelection")
-const categoriasRepetidas = generalEvents.map(evento => evento["category"])
-const categoriasSinRepetirSet = new Set (categoriasRepetidas)
-const categoriasSinRepetirArray = [... categoriasSinRepetirSet]
-
-generarCheckbox(categoriasSinRepetirArray, $checkboxSelection)
-
-agregarCardPastFurure(pastEvents, pastEventsCards) 
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json() )
+    .then(datos => {
+        agregarCardPastFurure(filtrarPorFechaPasada(datos.currentDate, datos.events), pastEventsCards);
+        generarCheckbox([...new Set(datos.events.map(evento => evento["category"]))], $checkboxSelection)
+    })
+    .catch(error => console.log(error))
 
 
 //eventos
@@ -28,13 +24,14 @@ $checkboxSelection.addEventListener("change", () => {
 
     const categorias = getCategories(filtradosPorCheckbox)
 
-    const filtrados=  filtrarCards(pastEvents, categorias)
-
     const palabras = ($keyword.value).toLowerCase()
 
-    const matches = filtrarCoincidencias(filtrados, palabras)
-
-    agregarCardPastFurure(matches, pastEventsCards)
+    fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json() )
+    .then(datos => {
+        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(datos.currentDate, datos.events), categorias), palabras), pastEventsCards)
+    })
+    .catch(error => console.log(error))
 }
 )
 
@@ -48,12 +45,13 @@ $keyword.addEventListener("keyup", () => {
 
     const categorias = getCategories(filtradosPorCheckbox)
 
-    const filtrados=  filtrarCards(pastEvents, categorias)
-
     const palabras = ($keyword.value).toLowerCase()
 
-    const matches = filtrarCoincidencias(filtrados, palabras)
-
-    agregarCardPastFurure(matches, pastEventsCards)
+    fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json() )
+    .then(datos => {
+        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(datos.currentDate, datos.events), categorias), palabras), pastEventsCards)
+    })
+    .catch(error => console.log(error))
 }
 )

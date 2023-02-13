@@ -1,7 +1,5 @@
-//import {data} from "./data.js"
 import {agregarCard, generarCheckbox, getCategories, filtrarCards, filtrarCoincidencias} from "./module/functions.js"
 
-//const $generalEvents = data.events
 const $listOfEvent = document.getElementById("cardsMainColection")
 const $checkboxSelection = document.getElementById("checkboxSelection")
 const $keyword = document.getElementById("keyword")
