@@ -4,11 +4,16 @@ const $listOfEvent = document.getElementById("cardsMainColection")
 const $checkboxSelection = document.getElementById("checkboxSelection")
 const $keyword = document.getElementById("keyword")
 
+let eventos;
+let currentDate;
+
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
   .then(response => response.json() )
   .then(datos => {
-    agregarCard(datos.events, $listOfEvent);
-    generarCheckbox([...new Set(datos.events.map(evento => evento["category"]))], $checkboxSelection)
+    eventos = datos.events
+    currentDate = datos.currentDate
+    agregarCard(eventos, $listOfEvent);
+    generarCheckbox([...new Set(eventos.map(evento => evento["category"]))], $checkboxSelection)
   })
   .catch(error => console.log(error))
 
@@ -25,12 +30,7 @@ $checkboxSelection.addEventListener("change", () => {
 
   const palabras = ($keyword.value).toLowerCase()
 
-  fetch('https://mindhub-xj03.onrender.com/api/amazing')
-  .then(response => response.json() )
-  .then(datos => {
-    agregarCard(filtrarCoincidencias(filtrarCards(datos.events, categorias), palabras), $listOfEvent)
-  })
-  .catch(error => console.log(error))
+  agregarCard(filtrarCoincidencias(filtrarCards(eventos, categorias), palabras), $listOfEvent)
 }
 )
 
@@ -43,11 +43,6 @@ $keyword.addEventListener("keyup", () => {
 
   const palabras = ($keyword.value).toLowerCase()
 
-  fetch('https://mindhub-xj03.onrender.com/api/amazing')
-  .then(response => response.json() )
-  .then(datos => {
-    agregarCard(filtrarCoincidencias(filtrarCards(datos.events, categorias), palabras), $listOfEvent)
-  })
-  .catch(error => console.log(error))
+  agregarCard(filtrarCoincidencias(filtrarCards(eventos, categorias), palabras), $listOfEvent)
 }
 )

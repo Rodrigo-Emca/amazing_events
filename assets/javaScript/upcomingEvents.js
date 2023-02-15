@@ -5,11 +5,16 @@ let upcomingEventsCards = document.getElementById("upcomingEventsCards")
 const $checkboxSelection = document.getElementById("checkboxSelection")
 const $keyword = document.getElementById("keyword")
 
+let eventos;
+let currentDate;
+
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json() )
     .then(datos => {
-        let eventosFuturos = filtrarPorFechaFutura(datos.currentDate, datos.events)
-        agregarCardPastFurure(filtrarPorFechaFutura(datos.currentDate, datos.events), upcomingEventsCards);
+        eventos = datos.events
+        currentDate = datos.currentDate
+        let eventosFuturos = filtrarPorFechaFutura(currentDate, eventos)
+        agregarCardPastFurure(filtrarPorFechaFutura(currentDate, eventos), upcomingEventsCards);
         generarCheckbox([...new Set(eventosFuturos.map(evento => evento["category"]))], $checkboxSelection)
     })
     .catch(error => console.log(error))
@@ -27,12 +32,7 @@ $checkboxSelection.addEventListener("change", () => {
 
     const palabras = ($keyword.value).toLowerCase()
 
-    fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json() )
-    .then(datos => {
-        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaFutura(datos.currentDate, datos.events), categorias), palabras), upcomingEventsCards)
-    })
-    .catch(error => console.log(error))
+    agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaFutura(currentDate, eventos), categorias), palabras), upcomingEventsCards)
 }
 )
 
@@ -48,11 +48,6 @@ $keyword.addEventListener("keyup", () => {
 
     const palabras = ($keyword.value).toLowerCase()
 
-    fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json() )
-    .then(datos => {
-        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaFutura(datos.currentDate, datos.events), categorias), palabras), upcomingEventsCards)
-    })
-    .catch(error => console.log(error))
+    agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaFutura(currentDate, eventos), categorias), palabras), upcomingEventsCards)
 }
 )

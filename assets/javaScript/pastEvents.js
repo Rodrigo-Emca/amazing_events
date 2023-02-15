@@ -5,11 +5,16 @@ const pastEventsCards = document.getElementById("pastEventsCards")
 const $checkboxSelection = document.getElementById("checkboxSelection")
 const $keyword = document.getElementById("keyword")
 
+let eventos;
+let currentDate;
+
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json() )
     .then(datos => {
-        agregarCardPastFurure(filtrarPorFechaPasada(datos.currentDate, datos.events), pastEventsCards);
-        generarCheckbox([...new Set(datos.events.map(evento => evento["category"]))], $checkboxSelection)
+        eventos = datos.events
+        currentDate = datos.currentDate
+        agregarCardPastFurure(filtrarPorFechaPasada(currentDate, eventos), pastEventsCards);
+        generarCheckbox([...new Set(eventos.map(evento => evento["category"]))], $checkboxSelection)
     })
     .catch(error => console.log(error))
 
@@ -26,12 +31,7 @@ $checkboxSelection.addEventListener("change", () => {
 
     const palabras = ($keyword.value).toLowerCase()
 
-    fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json() )
-    .then(datos => {
-        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(datos.currentDate, datos.events), categorias), palabras), pastEventsCards)
-    })
-    .catch(error => console.log(error))
+    agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(currentDate, eventos), categorias), palabras), pastEventsCards)
 }
 )
 
@@ -47,11 +47,6 @@ $keyword.addEventListener("keyup", () => {
 
     const palabras = ($keyword.value).toLowerCase()
 
-    fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json() )
-    .then(datos => {
-        agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(datos.currentDate, datos.events), categorias), palabras), pastEventsCards)
-    })
-    .catch(error => console.log(error))
+    agregarCardPastFurure(filtrarCoincidencias(filtrarCards(filtrarPorFechaPasada(currentDate, eventos), categorias), palabras), pastEventsCards)
 }
 )
