@@ -16,7 +16,7 @@ export function agregarCard(lista, elementoDestino){
 
 export function generarCard(evento){
 return `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
-<img src="${evento.image}" class="card-img-top p-2" id="imageCard" alt="outing_to_the_museum">
+<img src="${evento.image}" class="card-img-top p-2" id="imageCard" alt="${evento.name}">
 <div class="card-body">
     <h5 class="card-title">${evento.name}</h5>
     <p class="card-text">${evento.description}</p>
@@ -42,7 +42,7 @@ export function agregarCardPastFurure(lista, elementoDestino){
 
 export function generarCardPastFuture(evento){
     return `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
-    <img src="${evento.image}" class="card-img-top p-2" id="imageCard" alt="outing_to_the_museum">
+    <img src="${evento.image}" class="card-img-top p-2" id="imageCard" alt="${evento.name}">
     <div class="card-body">
         <h5 class="card-title">${evento.name}</h5>
         <p class="card-text">${evento.description}</p>
@@ -241,7 +241,7 @@ firstTable.innerHTML = `<table class=" container border border-secondary" >
             }
         }).filter(Boolean)
 
-        aux.push([categoria, revenue.reduce((a,b) => a + b), attendance.slice([0],[1]) + "%"])
+        aux.push([categoria,  "$" + revenue.reduce((a,b) => a + b), attendance.slice([0],[1]) + "%"])
         
     })
         return aux
@@ -262,7 +262,7 @@ firstTable.innerHTML = `<table class=" container border border-secondary" >
             }
         }).filter(Boolean)
 
-        aux.push([categoria, revenue.reduce((a,b) => a + b), (attendance.reduce((a,b) => a + b)/attendance.length).toFixed(2) + "%"])
+        aux.push([categoria, "$" + revenue.reduce((a,b) => a + b), (attendance.reduce((a,b) => a + b)/attendance.length).toFixed(2) + "%"])
         })
         return aux
     }
