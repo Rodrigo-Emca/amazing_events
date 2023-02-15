@@ -3,7 +3,7 @@
 export function agregarCard(lista, elementoDestino){
     if(lista.length === 0){return elementoDestino.innerHTML = `
     <div class="d-flex flex-column justify-content-center pt-3">
-    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="500rem"></img></div>`}
     else{
         let template = ""
         for (let evento of lista){
@@ -30,7 +30,7 @@ return `<div class="card text-center col-md-3 m-4" style="width: 18rem;">
 export function agregarCardPastFurure(lista, elementoDestino){
     if(lista.length === 0){return elementoDestino.innerHTML = `
     <div class="d-flex flex-column justify-content-center pt-3">
-    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="250rem"></img></div>`}
+    <h3 class="text-center pt-2 pb-2">Oops, could´t find your search. <br> Please, try again.</h3> <br> <img src="/assets/images/no-result-gif.gif" height="500rem"></img></div>`}
     else{
     let template = ""
     for (let evento of lista){
@@ -62,6 +62,16 @@ for(let categoria of nodos){
 }
 return categorias
 }
+
+export function getCategoriasTodas(array){
+    const categorias = []
+    for(let categoria of array){
+        if(categoria) {
+        categorias.push(categoria.category)
+        }    
+    }
+    return categorias
+    }
 
 export function filtrarCards(lista, categorias){
 if(categorias.length === 0){
@@ -138,3 +148,132 @@ export function generarDetailCard(event, destino) {
 </div>`
 }
 
+export function porcentajeMasAlto(array){
+    let aux = []
+    array.forEach(element => {
+      let promedio =(element.assistance / element.capacity *100).toFixed(2)
+      element.promedio = promedio
+      aux.push(element)
+    });
+    let auxMax = aux.sort(function(a, b){return b.promedio - a.promedio}).slice([0],[1])
+    let auxCompl = auxMax[0].name + " " + auxMax[0].promedio + "%"
+    return auxCompl
+}
+
+export function porcentajeMasBajo(array){
+  let aux = []
+  array.forEach(element => {
+    let promedio = (element.assistance / element.capacity *100).toFixed(2)
+    element.promedio = promedio
+    aux.push(element)
+  });
+  let auxMax = aux.sort(function(a, b){return a.promedio - b.promedio}).slice([0],[1])
+  let auxCompl = auxMax[0].name + " " + auxMax[0].promedio + "%"
+  return auxCompl
+}
+
+export function eventoMayorCapacidad(array){
+  let aux = array.sort(function(a, b){return b.capacity - a.capacity}).slice([0],[1])
+  let auxCompl = aux[0].name + " " + aux[0].capacity
+  return auxCompl
+}
+
+export function crearPrimeraTabla(evento1, evento2, evento3){
+firstTable.innerHTML = `<table class=" container border border-secondary" >
+<thead class="border border-secondary bg-dark-subtle">
+    <tr>
+        <th colspan="3">Events Statistics</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td class="col-4 border border-secondary text-center">Events with the highest percentage of attendance</td>
+        <td class="col-4 border border-secondary text-center">Events with the lowest percentage of attendance</td>
+        <td class="col-4 border border-secondary text-center">Event with larger capacity</td>
+    </tr>
+    <tr>
+        <td class="col-4 border border-secondary text-center">${evento1}</td>
+        <td class="col-4 border border-secondary text-center">${evento2}</td>
+        <td class="col-4 border border-secondary text-center">${evento3}</td>
+    </tr>
+</tbody>
+</table>`
+}
+
+    export function gananciasyporcentajesEventosPasados(array){
+        let aux = []
+        array.forEach(element => {
+        const totalRevenues= (element.price) * (element.assistance)
+        element.gananciasTotales = parseInt(totalRevenues)
+        const promedio =(element.assistance / element.capacity *100).toFixed(2)
+        element.promedioAsistencia = parseInt(promedio)
+        aux.push(element)
+        })
+        return aux
+    }
+
+    export function gananciasyporcentajesEventosFuturos(array){
+        let aux = []
+        array.forEach(element => {
+        const revenues = parseInt(element.price)
+        const estimado = parseInt(element.estimate)
+        const totalRevenues= revenues * estimado
+        element.gananciasTotales = parseInt(totalRevenues)
+        const promedio =(element.estimate / element.capacity *100)
+        element.promedioAsistencia = parseInt(promedio)
+        aux.push(element)
+        })
+        return aux
+    }
+
+    export function contenidoSegundaTabla(lista, categorias){
+        let aux = []
+        categorias.forEach(categoria => {
+        let revenue = lista.map( event => {
+            if(event.category.includes(categoria)){
+            return event.gananciasTotales
+            }
+        }).filter(Boolean) //le quita los undefined
+
+        let attendance = lista.map(event => {
+            if(event.category.includes(categoria)){
+            return event.promedioAsistencia
+            }
+        }).filter(Boolean)
+
+        aux.push([categoria, revenue.reduce((a,b) => a + b), attendance.slice([0],[1]) + "%"])
+        
+    })
+        return aux
+    }
+
+    export function contenidoTerceraTabla(lista, categorias){
+        let aux = []
+        categorias.forEach(categoria => {
+        let revenue = lista.map( event => {
+            if(event.category.includes(categoria)){
+            return event.gananciasTotales
+            }
+        }).filter(Boolean) //le quita los undefined
+
+        let attendance = lista.map(event => {
+            if(event.category.includes(categoria)){
+            return event.promedioAsistencia
+            }
+        }).filter(Boolean)
+
+        aux.push([categoria, revenue.reduce((a,b) => a + b), (attendance.reduce((a,b) => a + b)/attendance.length).toFixed(2) + "%"])
+        })
+        return aux
+    }
+
+
+    export function imprimirTablas(contenido, destino){
+        for (let evento of contenido){
+            destino.innerHTML += `<tr>
+            <td class="col-4 border border-secondary text-center">${evento[0]}</td>
+            <td class="col-4 border border-secondary text-center">${evento[1]}</td>
+            <td class="col-4 border border-secondary text-center">${evento[2]}</td>
+            </tr>`
+        }
+    }

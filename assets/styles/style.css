@@ -18,7 +18,7 @@ header {
 
 main {
     min-height: 75vh;
-    background-color: #0f4d5c24 !important;
+    /* background-color: #0f4d5c24 !important; */
 }
 
 #navButtons {

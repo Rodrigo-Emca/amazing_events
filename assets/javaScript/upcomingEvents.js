@@ -8,8 +8,9 @@ const $keyword = document.getElementById("keyword")
 fetch('https://mindhub-xj03.onrender.com/api/amazing')
     .then(response => response.json() )
     .then(datos => {
+        let eventosFuturos = filtrarPorFechaFutura(datos.currentDate, datos.events)
         agregarCardPastFurure(filtrarPorFechaFutura(datos.currentDate, datos.events), upcomingEventsCards);
-        generarCheckbox([...new Set(datos.events.map(evento => evento["category"]))], $checkboxSelection)
+        generarCheckbox([...new Set(eventosFuturos.map(evento => evento["category"]))], $checkboxSelection)
     })
     .catch(error => console.log(error))
 
